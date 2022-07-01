@@ -1,16 +1,16 @@
 const express = require('express');
-const app = express();
+const api = express();
 const PORT = 8080;
 
-app.use(express.json())
+api.use(express.json())
 
-app.listen(
+api.listen(
     PORT,
     () => console.log(`it's alive on http://localhost:${PORT}`)
 );
 
 //run function after get
-app.get('/tshirt', (req, res)/*request(incoming) and response(outgoing)*/ => {
+api.get('/tshirt', (req, res)/*request(incoming) and response(outgoing)*/ => {
     res.status(200).send({/*data payload*/
         tshirt : 'wow',
         size : 'medium'
@@ -18,7 +18,7 @@ app.get('/tshirt', (req, res)/*request(incoming) and response(outgoing)*/ => {
 });
 
 //dynamic url param
-app.post('/tshirt/:id'/*capture dynamic value in URL*/, (req, res) => {
+api.post('/tshirt/:id'/*capture dynamic value in URL*/, (req, res) => {
     const { id } = req.params;
     const { logo } = req.body;
 
