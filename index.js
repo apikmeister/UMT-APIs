@@ -1,13 +1,30 @@
 const express = require('express');
 const api = express();
 const PORT = 8080;
+const request = require("request-promise");
+const cheerio = require("cheerio");
+const mongoose= require('mongoose');
+const bodyparser=require('body-parser');
+const cookieParser=require('cookie-parser');
+const { response } = require('express');
+
+request("https://epembelajaran.umt.edu.my/oceania/auth/saml/index.php", (error, response, html) => {
+    if (!error && response.statusCode == 200) {
+        const $= cheerio.load(html);
+    }
+})
 
 api.use(express.json())
+api.use(bodyparser.urlencoded({extended : false}));
+api.use(bodyparser.json);
+api.use(cookieParser());
 
 api.listen(
     PORT,
     () => console.log(`it's alive on http://localhost:${PORT}`)
 );
+
+
 
 //run function after get
 api.get('/tshirt', (req, res)/*request(incoming) and response(outgoing)*/ => {
